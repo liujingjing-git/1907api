@@ -27,7 +27,7 @@ Route::prefix('/test')->group(function(){
 });
 
 /** api接口 */
-
 Route::prefix('/api')->group(function(){
-
+    Route::get('/user/info','Api\UserController@info');
+    Route::post('user/reg','Api\UserController@reg');
 });

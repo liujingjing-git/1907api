@@ -40,6 +40,9 @@ Route::prefix('/test')->group(function(){
     Route::post('/PostRaw','TestController@PostRaw');
 
     Route::post('/upload','TestController@upload');//上传文件
+
+    /*redis*/
+    Route::get('/redis1','TestController@redis1');
 });
 
 /** api接口 */
@@ -51,4 +54,5 @@ Route::prefix('/api')->group(function(){
 /**商品详情*/
 Route::prefix('/goods')->group(function(){
     Route::get('/index','GoodsController@index');
+    Route::get('/visits','GoodsController@visits');  //访问量
 });

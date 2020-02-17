@@ -218,4 +218,24 @@ class TestController extends Controller
         echo "<pre>";print_r($_FILES);"</pre>"; 
     }
 
+    
+    /** redis */
+    public function redis1()
+    {
+        $token = 'abcdef';
+        $key = 'user_token';
+
+        $goods_info = [
+            'id' => 11,
+            'goods_name' => "OPPO",
+            'price' => 340000,
+            'img' => 'wybzushuai.jpg'
+        ];
+        
+        Redis::set($key,$token);
+
+        //monitor  设置过期时间  15s
+        Redis::expire($key,15);
+    }
+
 }

@@ -13,8 +13,7 @@ class GoodsController extends Controller
         $goods = GoodsStatisticModel::where('goods_id','=',$goods_id)->get();
         
         $ip = $_SERVER['REMOTE_ADDR']; //获取到地址
-        $ua = $_SERVER['HTTP_USER_AGENT'];  //浏览页面
-        
+        $ua = $_SERVER['HTTP_USER_AGENT'];  //用于标识
         $data = [
             'ip' => $ip,               //访客ip
             'ua' => $ua,               //浏览器标识

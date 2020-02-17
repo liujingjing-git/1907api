@@ -166,4 +166,56 @@ class TestController extends Controller
         $data = $response->getBody();
         echo $data;
     }
+
+    /** 
+     * GET的传参方式 在路径上传参url+?name=liu&age=18
+     */
+    public  function GetRequest()
+    {
+        echo "接收到的数据:";echo "<br>";
+        echo "<pre>";print_r($_GET);"</pre>";
+    }
+
+    /** 
+     * POST传参的三种方式
+     */
+    public function PostRequest()
+    {
+        echo "<hr>";
+        echo "我是API开始";
+        echo "<pre>";print_r($_POST);"</pre>";
+        echo "<pre>";print_r($_FILES);"</pre>";
+        echo "我是API结束";
+    }
+    public function Posturlencodes()
+    {
+        echo "<pre>";print_r($_POST);"</pre>";
+    }
+    /** 
+     * POST方法3
+     * 不通过key方式传参
+     * 可接受json xml
+     */
+    public function PostRaw()
+    {
+        //可转为数组格式  接收json或者xml格式
+        $json = file_get_contents("php://input");
+        echo $json;echo '<hr>';
+        $data = json_decode($json,true);
+        echo "<pre>";print_r($data);"</pre>";   
+        
+        // echo "<pre>";print_r($_POST);"</pre>";             
+        
+    }
+    
+    /**
+     * 接收post 上传文件
+     */
+    public function upload()
+    {
+        echo "<pre>";print_r($_POST);"</pre>"; 
+        echo "接受文件:";echo "<br>";
+        echo "<pre>";print_r($_FILES);"</pre>"; 
+    }
+
 }

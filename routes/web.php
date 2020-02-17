@@ -32,10 +32,23 @@ Route::prefix('/test')->group(function(){
     Route::get('/curl1','TestController@curl1');
     Route::get('/curl2','TestController@curl2');
     Route::get('/guzzle1','TestController@guzzle1');
+
+    /*get和post请求*/
+    Route::get('/GetRequest','TestController@GetRequest');
+    Route::post('/PostRequest','TestController@PostRequest');
+    Route::post('/Posturlencodes','TestController@Posturlencodes');
+    Route::post('/PostRaw','TestController@PostRaw');
+
+    Route::post('/upload','TestController@upload');//上传文件
 });
 
 /** api接口 */
 Route::prefix('/api')->group(function(){
     Route::get('/user/info','Api\UserController@info');
     Route::post('user/reg','Api\UserController@reg');
+});
+
+/**商品详情*/
+Route::prefix('/goods')->group(function(){
+    Route::get('/index','GoodsController@index');
 });

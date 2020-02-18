@@ -91,6 +91,14 @@ class GoodsController extends Controller
     /**限制访问量 */
     public function  visits(Request $request)
     {   
+       //使用UA识别用户
+       $ua = $_SERVER['HTTP_USER_AGENT'];
+       echo $ua;echo "<br>";
+       $u = md5($ua);
+       echo "md5 ua:".$u;echo "<br>";
+       $u = substr($u,5,5);
+       echo "u: ".$u;echo "<br>";
+       
        //限制次数
        $max = env('API_ACCESS_COUNT');
 

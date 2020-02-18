@@ -111,10 +111,11 @@ class GoodsController extends Controller
         if($num > $max){
             echo "禁止频繁刷新";
             die;
-        }   
-        //计数
-        $count = Redis::incr($key);
-        echo $count;echo "<br>";
-        echo "正常";
+        }else{
+            //计数
+            $count = Redis::incr($key);
+            echo $count;echo "<br>";
+            echo "正常";
+        } 
     }
 }

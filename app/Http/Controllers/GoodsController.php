@@ -62,24 +62,51 @@ class GoodsController extends Controller
 
         // echo "<pre>";print_r($_SERVER['QUERY_STRING']);echo "</pre>";die;
     }
+    /**测试server */
+    public function server()
+    {
+        // echo "<pre>";print_r($_SERVER);echo "</pre>";echo "<hr>";//服务器信息
+        // echo "<pre>";print_r($_SERVER['USER']);echo "</pre>";echo "<hr>";//用户
+        // echo "<pre>";print_r($_SERVER['HTTP_USER_AGENT']);echo "</pre>";echo "<hr>"; //计算机标识
+        // echo "<pre>";print_r($_SERVER['REMOTE_ADDR']);echo "</pre>"; //获取到IP
+    
+        //获取到当前IP
+        $addr = $_SERVER['REMOTE_ADDR'];
+        // echo "当前IP:".$addr;
+        
+        //获取当前域名
+        $host = $_SERVER['HTTP_HOST'];
+        echo "域名:".$host;
+        
+        //获取到当前路径
+        $uri = $_SERVER['REQUEST_URI'];
+        echo "路径:".$uri;
+        
+        //获取到完整的URL
+        $url = $addr."://".$host.$uri;
+        echo "<pre>";print_r($url);echo "</pre>";
+    }
+    
 
     /**限制访问量 */
     public function  visits(Request $request)
     {   
-       //$id = $request->get('id');
-        
+       //限制次数
+       $max = env('API_ACCESS_COUNT');
+
        //刷新次数  自增incr
-        $key = "incr";
-        // echo "自增:";die;
-        Redis::incr($key);  
-        $get = Redis::get($key); 
-        echo "刷新次数：".$get;echo "<br>";
-        if($get >= 20){
-            echo "一分钟内禁止频繁刷新";
-            Redis::expire($key,20);die;  //给值设置过期时间
-        }        
+        $key = "count1";
+        $num = Redis::get($key);
+        // echo "自增:".$num;
+        echo "刷新次数：".$num;echo "<br>";
+        
+        if($num > $max){
+            echo "禁止频繁刷新";
+            die;
+        }   
+        //计数
+        $count = Redis::incr($key);
+        echo $count;echo "<br>";
+        echo "正常";
     }
-    
-
-
 }

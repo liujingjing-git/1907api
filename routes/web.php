@@ -55,4 +55,5 @@ Route::prefix('/api')->group(function(){
 Route::prefix('/goods')->group(function(){
     Route::get('/index','GoodsController@index');
     Route::get('/visits','GoodsController@visits');  //访问量
+    Route::get('/server','GoodsController@server');  //测试SERVER
 });

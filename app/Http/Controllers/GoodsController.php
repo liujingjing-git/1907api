@@ -66,12 +66,18 @@ class GoodsController extends Controller
     /**限制访问量 */
     public function  visits(Request $request)
     {   
-        $id = $request->get('id');
-        $info = VisitsModel::where(['id'=>$id])->first();
-        echo "<pre>";print_r($info->toArray());echo "</pre>";
+       //$id = $request->get('id');
         
-        // $visi = Redis::get('visi'.$id);
-        // Redis::incr('visi'.$id);
+       //刷新次数  自增incr
+        $key = "incr";
+        // echo "自增:";die;
+        Redis::incr($key);  
+        $get = Redis::get($key); 
+        echo "刷新次数：".$get;echo "<br>";
+        if($get >= 20){
+            echo "一分钟内禁止频繁刷新";
+            Redis::expire($key,20);die;  //给值设置过期时间
+        }        
     }
     
 

@@ -110,7 +110,7 @@ class GoodsController extends Controller
             //设置X秒内禁止访问
             $timeout = env('API_TIMEOUT_SECOND');  
             Redis::expire($key,$timeout);
-            echo "禁止频繁刷新".$max;echo "<br>";
+            // echo "禁止频繁刷新".$max;echo "<br>";
             echo $timeout."秒后访问";echo "<br>";
             die;
         }

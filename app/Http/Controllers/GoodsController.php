@@ -62,7 +62,7 @@ class GoodsController extends Controller
 
         // echo "<pre>";print_r($_SERVER['QUERY_STRING']);echo "</pre>";die;
     }
-    /**测试server */
+    /**得到完整当前路径 server */
     public function server()
     {
         // echo "<pre>";print_r($_SERVER);echo "</pre>";echo "<hr>";//服务器信息
@@ -93,29 +93,31 @@ class GoodsController extends Controller
     {   
        //使用UA识别用户
        $ua = $_SERVER['HTTP_USER_AGENT'];
-       echo $ua;echo "<br>";
        $u = md5($ua);
-       echo "md5 ua:".$u;echo "<br>";
        $u = substr($u,5,5);
-       echo "u: ".$u;echo "<br>";
        
        //限制次数
        $max = env('API_ACCESS_COUNT');
 
        //刷新次数  自增incr
-        $key = "count1";
+        $key = $u.":count1";
+        echo $key;echo "<br>";
         $num = Redis::get($key);
         // echo "自增:".$num;
-        echo "刷新次数：".$num;echo "<br>";
+        echo "现刷新次数：".$num;echo "<br>";
         
         if($num > $max){
-            echo "禁止频繁刷新";
+            //设置X秒内禁止访问
+            $timeout = env('API_TIMEOUT_SECOND');  
+            Redis::expire($key,$timeout);
+            echo "禁止频繁刷新".$max;echo "<br>";
+            echo $timeout."秒后访问";echo "<br>";
             die;
-        }else{
-            //计数
-            $count = Redis::incr($key);
-            echo $count;echo "<br>";
-            echo "正常";
-        } 
+        }
+
+        //计数
+        $count = Redis::incr($key);
+        echo $count;echo "<br>";
+        echo "正常";
     }
 }

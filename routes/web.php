@@ -52,7 +52,7 @@ Route::prefix('/api')->group(function(){
 });
 
 /**商品详情*/
-Route::prefix('/goods')->group(function(){
+Route::prefix('/goods')->middleware('api.filter')->group(function(){
     Route::get('/index','GoodsController@index');
     Route::get('/visits','GoodsController@visits');  //访问量
     Route::get('/server','GoodsController@server');  //测试SERVER

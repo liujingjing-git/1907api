@@ -43,12 +43,18 @@ Route::prefix('/test')->group(function(){
 
     /*redis*/
     Route::get('/redis1','TestController@redis1');
+
+    //**测试 */
+    Route::get('/Testmd5','TestController@Testmd5');
+   /*接收数据*/
+    Route::get('/verifySign','TestController@verifySign');
 });
 
 /** api接口 */
 Route::prefix('/api')->group(function(){
     Route::get('/user/info','Api\UserController@info');
     Route::post('user/reg','Api\UserController@reg');
+    Route::get('weather','Api\UserController@weather'); //天气接口
 });
 
 /**商品详情*/

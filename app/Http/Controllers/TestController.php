@@ -238,4 +238,48 @@ class TestController extends Controller
         Redis::expire($key,15);
     }
 
+    /** 
+     * 请求数据
+     */
+    public function Testmd5()
+    {
+        $key = '1907'; //发送方 和 接收方都是使用一个key
+
+        //代签名数据
+        $str = $_GET['str'];
+        echo "签名前的数据".$str;echo "<br>";
+
+        //计算签名 原始数据+key
+        $sign = md5($str.$key);
+        echo "计算后签名".$sign;
+
+        //发送数据  数据 + 签名
+
+        //!get url传参    
+        // echo $_GET['str'];echo "<br>";
+        //解密MD5    https://cmd5.com/
+        // echo md5($_GET['str']);
+    }
+
+    
+    
+    /*test 接收数据 验证签名*/
+    public function verifySign()
+    {
+        $key = '1907';
+
+        $data = $_GET['data']; //接收到的数据
+        $sign = $_GET['sign']; //接收到的签名
+
+        //验签
+        $sign1 = md5($data.$key); 
+        echo "接收端计算的签名:".$sign1;echo "<br>";
+        //与接收到的签名对比
+        if($sign1 == $sign)
+        {
+            echo "验签通过 数据完整";
+        }else{
+            echo "验签失败 数据损坏";
+        }
+    }
 }

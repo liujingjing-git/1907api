@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                   天道酬勤
+                   Hier
                 </div>
 
                 <div class="links">

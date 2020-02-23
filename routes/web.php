@@ -54,7 +54,7 @@ Route::prefix('/test')->group(function(){
 
     Route::get('/decrypt','TestController@decrypt');
     Route::get('/decrypt1','TestController@decrypt1');
-    
+    Route::get('/task','TestController@task');
 });
 
 /** api接口 */

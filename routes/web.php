@@ -48,6 +48,13 @@ Route::prefix('/test')->group(function(){
     Route::get('/Testmd5','TestController@Testmd5');
    /*接收数据*/
     Route::get('/verifySign','TestController@verifySign');
+
+    /*取模*/
+    Route::get('/take','TestController@take');
+
+    Route::get('/decrypt','TestController@decrypt');
+    Route::get('/decrypt1','TestController@decrypt1');
+    
 });
 
 /** api接口 */

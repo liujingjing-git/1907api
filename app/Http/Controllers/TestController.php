@@ -282,4 +282,60 @@ class TestController extends Controller
             echo "验签失败 数据损坏";
         }
     }
+
+
+    /*取模*/
+    public function take()
+    {
+    }
+
+    /**
+     * 解密
+    */
+    public function decrypt()
+    {
+        $data = $_GET['data']; 
+
+        //解密
+        $length = strlen($data); //获取密文的长度
+
+        $str='';
+        
+        for($i=0;$i<$length;$i++){
+            echo  $data[$i].'>'.ord($data[$i]);echo "<br>";
+            $code = ord($data[$i])-1;
+
+            echo "解密:".$data[$i].'>'.chr($code);echo "<br>";
+            $str .= chr($code);
+        }
+        echo "解密数据:".$str;
+    }
+
+    /** 
+     * base64解密
+     */
+    public function decrypt1()
+    {
+        //key method iv必须一致
+        $key = '1907';
+        $method = 'aes-128-cbc'; //加算法
+        $iv = '123456abc123456a';  //vi 必须为16个字节 (16个ascii字符)
+
+        echo "<hr>";
+        echo "已接收到的数据";
+        echo "<pre>";print_r($_GET);echo "</pre>";
+        $data = $_GET['data'];
+
+        //base64编码
+        $enc_str = base64_decode($data); 
+
+        //解密
+        $dec_data = openssl_decrypt($enc_str,$method,$key,OPENSSL_RAW_DATA,$iv);
+        echo "解密后的数据:";echo "<br>";
+        var_dump($dec_data);
+    }
+
+    /** 
+     *
+     */
 }

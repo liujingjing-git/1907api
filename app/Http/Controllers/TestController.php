@@ -362,8 +362,9 @@ class TestController extends Controller
         $iv = 'abc123456a123456';  //vi 必须为16个字节 (16个ascii字符)
 
         echo "<hr>";
+        echo "<hr>";
         
-        echo "已接收到的数据";echo "<br>";
+        echo "已接收到的数据";
         echo "<pre>";print_r($_GET);echo "</pre>";
         
         $data = $_GET['data'];

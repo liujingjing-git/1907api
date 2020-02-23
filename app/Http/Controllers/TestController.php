@@ -363,7 +363,7 @@ class TestController extends Controller
 
         echo "<hr>";
         
-        echo "已接收到的数据";
+        echo "已接收到的数据";echo "<br>";
         echo "<pre>";print_r($_GET);echo "</pre>";
         
         $data = $_GET['data'];

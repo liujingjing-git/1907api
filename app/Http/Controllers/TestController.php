@@ -362,7 +362,7 @@ class TestController extends Controller
         var_dump($dec_data);echo "<br>";
         
         //验签
-        $sign1 = md5($data.$key); 
+        $sign1 = md5($dec_data.$key); 
         echo "接收端计算的签名:".$sign1;echo "<br>";
         
         //与接收到的签名对比

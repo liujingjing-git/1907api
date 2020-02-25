@@ -55,6 +55,12 @@ Route::prefix('/test')->group(function(){
     Route::get('/decrypt','TestController@decrypt');
     Route::get('/decrypt1','TestController@decrypt1');
     Route::get('/task','TestController@task');
+
+    //非对称解密
+    Route::get('/Connection','TestController@Connection');
+    //验签解密
+    Route::get('/verify','TestController@verify');
+
 });
 
 /** api接口 */

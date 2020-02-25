@@ -373,4 +373,54 @@ class TestController extends Controller
             echo "验签失败 数据损坏";echo "<br>";
         }
     }
+
+    /**
+     * 非对称解密  
+     */
+    public function  Connection()
+    {
+        // echo "API";
+        // echo "<pre>";print_r($_GET);echo '</pre>';
+
+        //解密base64   base64_decode用来解密数据
+        $enc_data = base64_decode($_GET['data']);
+        // var_dump($enc_data);  //得到解密后的base64
+
+        //根据私钥来解密
+        $priv = file_get_contents(storage_path('keys/priv-a.key'));
+        openssl_private_decrypt($enc_data,$dec_data,$priv);
+        // echo "解密后的数据:";echo "<br>";
+
+
+        //响应数据
+        $str = 'Hello';
+        //使用对方的公钥进行加密
+        $key = file_get_contents(storage_path('keys/pub-b.key'));
+        openssl_public_encrypt($str,$enc_str,$key);
+        // echo "加密数据:".$enc_str;echo "<br>";
+
+        $data = [
+            'error' => 0,
+            'msg' => '解密成功',
+            'data' => base64_encode($enc_str)
+        ];
+
+        return $data;
+    }
+
+    /**
+     *  非对称验签
+     */
+    public function verify()
+    {
+        echo "API";
+        echo "<pre>";print_r($_GET);echo "</pre>";
+        $data = $_GET['data'];
+        $sign = $_GET['sign'];
+        $b64_sign_str = base64_decode($sign);
+        $priv_key_id = openssl_pkey_get_public("file://".storage_path('keys/pub-b.key'));
+        //返回
+        $ok = openssl_verify($data,$b64_sign_str,$priv_key_id,OPENSSL_ALGO_SHA256);
+        return $ok;
+    }
 }
